@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh
+
+echo 'Styling test building'
+
+#Check Prettier standards
+npm run check-types || 
+(
+  echo 'Não foi';
+  false
+)
