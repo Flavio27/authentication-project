@@ -1,6 +1,6 @@
-import { useState, createContext } from "react";
-import Router from "next/router";
-import firebase from "../lib/firebase";
+import { useState, createContext } from 'react';
+import Router from 'next/router';
+import firebase from '../lib/firebase';
 
 const AuthContext = createContext();
 
@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
         .signInWithPopup(new firebase.auth.GithubAuthProvider())
         .then((response) => {
           setUser(response.user);
-          Router.push("/dashboard");
+          Router.push('/dashboard');
         });
     } finally {
       setLoading(false);
@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
 
   const signout = () => {
     try {
-      Router.push("/");
+      Router.push('/');
       return firebase
         .auth()
         .signOut()
@@ -35,15 +35,18 @@ export function AuthProvider({ children }) {
     }
   };
 
-  return <AuthContext.Provider value={{
-      user,
-      loading,
-      signin,
-      signout,
-    }}
-  >
-    {children}
-  </AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        signin,
+        signout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const AuthConsumer = AuthContext.Consumer;
